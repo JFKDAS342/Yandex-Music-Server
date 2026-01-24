@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Yandex-Music-Server/Yandex-Music-Server.vcxproj" Id="876c59a4-cda9-47be-b3d8-cd6759a4ff3e" />
+</Solution>
