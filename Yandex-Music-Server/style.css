@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 30px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+}
+
+    header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+    }
+
+    header p {
+        opacity: 0.8;
+    }
+
+main {
+    flex: 1;
+    padding: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+    .controls input {
+        flex: 1;
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+    }
+
+    .controls button {
+        padding: 12px 25px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        background: #ffcc00;
+        color: #000;
+        font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+#content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.playlist {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    transition: transform 0.2s, background 0.2s;
+}
+
+    .playlist:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .playlist h2 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .playlist .meta {
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: 10px;
+    }
+
+.track {
+    font-size: 14px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .track:last-child {
+        border-bottom: none;
+    }
+
+footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+    opacity: 0.6;
+}

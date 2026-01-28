@@ -127,7 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Yandex-Music-Server.cpp" />
+    <ClCompile Include="JSONSerializer.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="WebServer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.js" />
+    <None Include="index.html" />
+    <None Include="fetcher_music.py" />
+    <None Include="style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="JSONSerializer.h" />
+    <ClInclude Include="WebServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

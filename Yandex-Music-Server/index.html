@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Yandex Music Viewer</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <header>
+        <h1>🎵 Yandex Music</h1>
+        <p>Ваши плейлисты и треки</p>
+    </header>
+
+    <main>
+        <section class="controls">
+            <input type="text" id="tokenInput" placeholder="Введите токен" />
+            <button id="loadBtn">Загрузить музыку</button>
+        </section>
+
+        <section id="content">
+            <!-- сюда JS будет рендерить плейлисты -->
+        </section>
+    </main>
+
+    <footer>
+        <span>Local server • 8080</span>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
