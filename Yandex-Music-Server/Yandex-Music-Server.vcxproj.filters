@@ -53,18 +53,12 @@
     <ClCompile Include="WebServer.cpp">
       <Filter>Исходные файлы\Backend\src</Filter>
     </ClCompile>
-    <ClCompile Include="JSONSerializer.cpp">
-      <Filter>Исходные файлы\Backend\src</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы\Backend</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WebServer.h">
-      <Filter>Исходные файлы\Backend\include</Filter>
-    </ClInclude>
-    <ClInclude Include="JSONSerializer.h">
       <Filter>Исходные файлы\Backend\include</Filter>
     </ClInclude>
   </ItemGroup>

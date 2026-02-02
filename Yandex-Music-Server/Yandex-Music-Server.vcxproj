@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="JSONSerializer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WebServer.cpp" />
   </ItemGroup>
@@ -138,7 +137,6 @@
     <None Include="style.css" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="JSONSerializer.h" />
     <ClInclude Include="WebServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

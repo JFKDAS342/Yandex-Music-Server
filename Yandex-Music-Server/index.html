@@ -1,31 +1,42 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <title>Yandex Music Viewer</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Yandex Music</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #111;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .playlist-card {
+            background: #222;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            width: 200px;
+        }
+
+            .playlist-card img {
+                width: 100%;
+                border-radius: 8px;
+            }
+    </style>
 </head>
 <body>
 
-    <header>
-        <h1>🎵 Yandex Music</h1>
-        <p>Ваши плейлисты и треки</p>
-    </header>
+    <h2>Yandex Music API</h2>
+    <input id="token" style="width:500px" placeholder="Вставь токен">
+    <br>
+    <button onclick="loadPlaylists()">Получить плейлисты</button>
 
-    <main>
-        <section class="controls">
-            <input type="text" id="tokenInput" placeholder="Введите токен" />
-            <button id="loadBtn">Загрузить музыку</button>
-        </section>
-
-        <section id="content">
-            <!-- сюда JS будет рендерить плейлисты -->
-        </section>
-    </main>
-
-    <footer>
-        <span>Local server • 8080</span>
-    </footer>
+    <div id="output" style="display:flex;flex-wrap:wrap"></div>
 
     <script src="app.js"></script>
 </body>

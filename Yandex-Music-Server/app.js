@@ -1,36 +1,31 @@
-async function loadMusic() {
+async function loadPlaylists() {
     const token = document.getElementById("token").value;
 
-    const res = await fetch(`/api/music?token=${encodeURIComponent(token)}`);
+    const res = await fetch(
+        `/api/music?token=${encodeURIComponent(token)}&action=playlists`
+    );
+
     const data = await res.json();
+    console.log(data);
+
+    if (data.status !== "ok") {
+        alert(data.message);
+        return;
+    }
 
     const root = document.getElementById("output");
     root.innerHTML = "";
 
     data.playlists.forEach(pl => {
-        const plDiv = document.createElement("div");
-        plDiv.className = "playlist";
+        const card = document.createElement("div");
+        card.className = "playlist-card";
 
-        plDiv.innerHTML = `
-            <h2>${pl.title} (${pl.track_count})</h2>
-            <ul></ul>
+        card.innerHTML = `
+            <img src="${pl.cover ?? 'https://via.placeholder.com/200'}">
+            <h3>${pl.title}</h3>
+            <p>${pl.track_count} треков</p>
         `;
 
-        const ul = plDiv.querySelector("ul");
-
-        pl.tracks.forEach(t => {
-            const li = document.createElement("li");
-            li.textContent =
-                `${t.title} Ч ${t.artists} (${formatTime(t.duration_sec)})`;
-            ul.appendChild(li);
-        });
-
-        root.appendChild(plDiv);
+        root.appendChild(card);
     });
-}
-
-function formatTime(sec) {
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return `${m}:${s.toString().padStart(2, "0")}`;
 }

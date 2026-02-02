@@ -1,51 +1,51 @@
+п»їfrom yandex_music import Client
 import sys
 import json
-from yandex_music import Client
 
-if len(sys.argv) < 2:
-    print(json.dumps({"error": "token missing"}))
-    exit(1)
+if len(sys.argv) < 3:
+    print(json.dumps({"status": "error", "message": "no token"}))
+    sys.exit(1)
 
 token = sys.argv[1]
+action = sys.argv[2]
 
 client = Client(token).init()
 
-user_id = client.me.account.uid
-playlists = client.users_playlists_list(user_id)
+def fetch_playlists():
+    playlists = client.users_playlists_list()
+    result = []
 
-result_playlists = []
+    for pl in playlists:
+        cover = None
+        if pl.cover and pl.cover.uri:
+            cover = "https://" + pl.cover.uri.replace("%%", "200x200")
 
-for pl in playlists:
-    playlist_data = {
-        "id": pl.playlist_id,
-        "title": pl.title,
-        "track_count": pl.track_count,
-        "tracks": []
-    }
-
-    # загружаем треки плейлиста
-    playlist_full = client.users_playlists(
-        user_id,
-        pl.kind
-    )
-
-    for item in playlist_full.tracks:
-        track = item.track
-        if not track:
-            continue
-
-        artists = ", ".join(a.name for a in track.artists)
-
-        playlist_data["tracks"].append({
-            "id": track.id,
-            "title": track.title,
-            "artists": artists,
-            "duration_sec": track.duration_ms // 1000
+        result.append({
+            "title": pl.title,
+            "track_count": pl.track_count,
+            "cover": cover
         })
 
-    result_playlists.append(playlist_data)
+    return result
 
-print(json.dumps({
-    "status": "ok",
-    "playlists": result_playlists
-}, ensure_ascii=False))
+def main():
+    try:
+        if action == "playlists":
+            data = fetch_playlists()
+            print(json.dumps({
+                "status": "ok",
+                "playlists": data
+            }, ensure_ascii=False))
+        else:
+            print(json.dumps({
+                "status": "error",
+                "message": "unknown action"
+            }))
+    except Exception as e:
+        print(json.dumps({
+            "status": "error",
+            "message": str(e)
+        }))
+
+if __name__ == "__main__":
+    main()
