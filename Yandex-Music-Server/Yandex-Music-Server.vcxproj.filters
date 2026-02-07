@@ -13,53 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\frontend">
-      <UniqueIdentifier>{47e66f63-fb16-40e8-ab13-8f989b86f478}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\frontend\js">
-      <UniqueIdentifier>{fa6d6d5e-fa1e-4833-99df-a029740c0d97}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\frontend\css">
-      <UniqueIdentifier>{726ea3cf-7c12-4c53-a5f2-a320b84dc3b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\Backend">
-      <UniqueIdentifier>{a80b4cc3-eda1-4efd-9902-1b5ec8ed12bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\Backend\src">
-      <UniqueIdentifier>{3154af40-18fa-4eb1-be86-2c5d10d95c7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\Backend\include">
-      <UniqueIdentifier>{36a1de72-58e9-4a74-9753-ad7c165a722d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Исходные файлы\Backend\APIpy">
-      <UniqueIdentifier>{4c689540-48ae-4bfa-94d7-dabdd7f1e402}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="index.html">
-      <Filter>Исходные файлы\frontend</Filter>
+    <None Include="Backend\scriptsAPI\fetcher_music.py">
+      <Filter>Исходные файлы</Filter>
     </None>
-    <None Include="fetcher_music.py">
-      <Filter>Исходные файлы\Backend\APIpy</Filter>
+    <None Include="Frontend\app.js">
+      <Filter>Исходные файлы</Filter>
     </None>
-    <None Include="app.js">
-      <Filter>Исходные файлы\frontend\js</Filter>
+    <None Include="Frontend\index.html">
+      <Filter>Исходные файлы</Filter>
     </None>
-    <None Include="style.css">
-      <Filter>Исходные файлы\frontend\css</Filter>
-    </None>
+    <None Include="Frontend\style.css" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="WebServer.cpp">
-      <Filter>Исходные файлы\Backend\src</Filter>
+    <ClCompile Include="Backend\src\main.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы\Backend</Filter>
+    <ClCompile Include="Backend\src\WebServer.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WebServer.h">
-      <Filter>Исходные файлы\Backend\include</Filter>
+    <ClInclude Include="Backend\include\WebServer.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

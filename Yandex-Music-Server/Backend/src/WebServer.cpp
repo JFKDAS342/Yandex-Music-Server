@@ -1,5 +1,5 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
-#include "WebServer.h"
+#include "../include/WebServer.h"
 
 #include <iostream>
 #include <fstream>
@@ -14,7 +14,7 @@
 #pragma comment(lib, "ws2_32.lib")
 
 using namespace std;
-
+string FRONTEND_DIR = "Frontend/";
 /* ================== URL DECODE ================== */
 string WebServer::urlDecode(const string& str) {
     string result;
@@ -202,24 +202,32 @@ void WebServer::handleApi(SOCKET client_socket, const string& path, const string
 void WebServer::handleMusicApi(SOCKET client_socket, const string& query) {
     auto params = parseQuery(query);
 
-    if (!params.count("token") || !params.count("action")) {
+    if (!params.count("token")) {
         sendResponse(client_socket,
-            "HTTP/1.1 400 Bad Request\r\n\r\nMissing token or action");
+            "HTTP/1.1 400 Bad Request\r\n\r\nMissing token");
         return;
     }
 
     string token = urlDecode(params["token"]);
-    string action = params["action"];
+    string offSet = params["offset"];
+    string LIMIT = params["limit"];
 
-    cout << "TOKEN: [" << token << "]" << endl;
+    if (!params.count("token") ||
+        !params.count("offset") ||
+        !params.count("limit")) {
+
+        sendResponse(client_socket,
+            "HTTP/1.1 400 Bad Request\r\n\r\nMissing token / offset / limit");
+        return;
+    }
 
     string cmd =
-        "cmd /c \""
+        "cmd /c \"chcp 65001 > nul & "
         "\"C:\\Users\\ilyae\\AppData\\Local\\Programs\\Python\\Python39\\python.exe\" "
-        "\"C:\\Users\\ilyae\\source\\repos\\Yandex-Music-Server\\Yandex-Music-Server\\fetcher_music.py\" "
+        "\"C:\\Users\\ilyae\\source\\repos\\Yandex-Music-Server\\Yandex-Music-Server\\backend\\scriptsAPI\\fetcher_music.py\" "
         "\"" + token + "\" "
-        "\"" + action + "\""
-        "\"";
+        "\"" + offSet + "\" "
+        "\"" + LIMIT + "\"\"";
 
     cout << "CMD EXEC: " << cmd << endl;
 
@@ -239,8 +247,12 @@ void WebServer::handleMusicApi(SOCKET client_socket, const string& query) {
 
     _pclose(pipe);
 
-    result.erase(remove(result.begin(), result.end(), '\r'), result.end());
-    result.erase(remove(result.begin(), result.end(), '\n'), result.end());
+    if (result.empty() || result[0] != '{') {
+        sendResponse(client_socket,
+            "HTTP/1.1 500 Internal Server Error\r\n"
+            "Content-Type: text/plain\r\n\r\nPython returned invalid JSON");
+        return;
+    }
 
     cout << "JSON OUT:\n" << result << endl;
 
@@ -253,17 +265,41 @@ bool WebServer::sendFile(SOCKET client_socket, const string& filepath) {
     string filename = filepath[0] == '/' ? filepath.substr(1) : filepath;
     if (filename.find("..") != string::npos) return false;
 
-    ifstream file(filename, ios::binary);
+    string file_path = FRONTEND_DIR + filename;
+    ifstream file(file_path, ios::binary);
     if (!file.is_open()) return false;
 
     string content((istreambuf_iterator<char>(file)), {});
     file.close();
 
+    string content_type = "text/plain; charset=UTF-8";
+    if (filename.find(".html") != string::npos ||
+        filename.find(".htm") != string::npos) {
+        content_type = "text/html; charset=UTF-8";
+    }
+    else if (filename.find(".css") != string::npos) {
+        content_type = "text/css; charset=UTF-8";
+    }
+    else if (filename.find(".js") != string::npos) {
+        content_type = "application/javascript; charset=UTF-8";
+    }
+    else if (filename.find(".json") != string::npos) {
+        content_type = "application/json; charset=UTF-8";
+    }
+    else if (filename.find(".png") != string::npos) {
+        content_type = "image/png";
+    }
+    else if (filename.find(".jpg") != string::npos ||
+        filename.find(".jpeg") != string::npos) {
+        content_type = "image/jpeg";
+        
+    }
+
     string response =
         "HTTP/1.1 200 OK\r\n"
-        "Content-Type: text/html\r\n"
-        "Content-Length: " + to_string(content.size()) + "\r\n\r\n" +
-        content;
+        "Content-Type: " + content_type + "\r\n"
+        "Content-Length: " + to_string(content.length()) + "\r\n"
+        "\r\n" + content;
 
     sendResponse(client_socket, response);
     return true;

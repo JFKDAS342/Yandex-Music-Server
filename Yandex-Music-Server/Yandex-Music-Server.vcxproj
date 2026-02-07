@@ -127,17 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="WebServer.cpp" />
+    <ClCompile Include="Backend\src\main.cpp" />
+    <ClCompile Include="Backend\src\WebServer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.js" />
-    <None Include="index.html" />
-    <None Include="fetcher_music.py" />
-    <None Include="style.css" />
+    <None Include="Frontend\style.css" />
+    <None Include="Frontend\app.js" />
+    <None Include="Frontend\index.html" />
+    <None Include="Backend\scriptsAPI\fetcher_music.py" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WebServer.h" />
+    <ClInclude Include="Backend\include\WebServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
