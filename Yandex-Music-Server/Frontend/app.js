@@ -35,7 +35,7 @@ async function loadMusic(reset = true) {
 }
 
 function renderPlaylists(playlists) {
-    const root = document.getElementById("playlists");
+    const root = document.querySelector(".playlists");
     root.innerHTML = "";
 
     playlists.forEach(pl => {
@@ -50,13 +50,17 @@ function renderPlaylists(playlists) {
     });
 }
 
+
 function appendLikedTracks(tracks) {
     const root = document.getElementById("liked-tracks");
 
     tracks.forEach(t => {
         const li = document.createElement("li");
+        const h4 = document.createElement("h4")
+        h4.className = "track"
         li.className = "track";
-        li.textContent = `${t.count}. ${t.title} — ${t.artists.join(", ")}`;
-        root.appendChild(li);
+        liText = li.textContent = `${t.count}. ${t.title} — ${t.artists.join(", ")}`;
+        h4.textContent = liText;
+        root.appendChild(h4);
     });
 }

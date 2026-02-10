@@ -37,13 +37,16 @@ def fetch_playlists():
     return playlist
 
 
-def fetch_liked_tracks():
+def fetch_liked_tracks(offset: int, limit: int):
     likes = client.users_likes_tracks()
 
-    slice_likes = likes[offset : offset + limit]
-    tracks = []
+    items = []
+    i = offset
 
-    for i, like in enumerate(slice_likes):
+    while i < len(likes) and len(items) < limit:
+        like = likes[i]
+        i += 1
+
         try:
             track = like.fetch_track()
         except Exception:
@@ -52,25 +55,25 @@ def fetch_liked_tracks():
         if not track:
             continue
 
-        tracks.append({
-            "count": offset + i + 1,
+        items.append({
+            "count": i,
             "title": track.title,
             "artists": [a.name for a in track.artists],
             "duration": track.duration_ms // 1000
         })
 
     return {
-        "total": likes.total_count if hasattr(likes, "total_count") else len(likes),
-        "items": tracks
+        "items": items,
+        "next_offset": i,
+        "has_more": i < len(likes)
     }
-
 
 def main():
     try:
         data = {
             "status": "ok",
             "playlists": fetch_playlists(),
-            "liked_tracks": fetch_liked_tracks()
+            "liked_tracks": fetch_liked_tracks(offset, limit)
         }
 
         print(json.dumps(data, ensure_ascii=False))
